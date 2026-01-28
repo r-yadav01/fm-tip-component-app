@@ -1,9 +1,15 @@
 import React from 'react';
 
 export function Calculator() {
-  const [totalBill, setTotalBill] = React.useState(100);
-  const [totalPeople, setTotalPeople] = React.useState(10);
-  const [tipChosen, setTipChosen] = React.useState('10%');
+  const [totalBill, setTotalBill] = React.useState('');
+  const [totalPeople, setTotalPeople] = React.useState('');
+  const [tipChosen, setTipChosen] = React.useState('');
+
+  function resetAllStates() {
+    setTipChosen('');
+    setTotalPeople('');
+    setTotalBill('');
+  }
 
   return (
     <article>
@@ -11,23 +17,30 @@ export function Calculator() {
         about='Bill'
         iconPath='icon-dollar.svg'
         value={totalBill}
+        onValueChange={setTotalBill}
       />
-      <SelectTip tipChosen={tipChosen} />
+      <SelectTip
+        tipChosen={tipChosen}
+        onTipChange={setTipChosen}
+      />
       <InputInfo
         about='Number of People'
         iconPath='icon-person.svg'
         value={totalPeople}
+        onValueChange={setTotalPeople}
       />
       <Result
         bill={totalBill}
         totalPeople={totalPeople}
         tipInfo={tipChosen}
+        setTotalPeople={setTotalPeople}
+        reset={resetAllStates}
       />
     </article>
   );
 }
 
-function InputInfo({ about, iconPath, value }) {
+function InputInfo({ about, iconPath, value, onValueChange }) {
   const inputId = about.replace(/\s+/g, '');
 
   return (
@@ -36,7 +49,9 @@ function InputInfo({ about, iconPath, value }) {
       <input
         type='number'
         id={inputId}
-        value={value}
+        value={value === 0 ? '' : value}
+        placeholder='0'
+        onChange={(e) => onValueChange(Number(e.target.value))}
       />
       <img
         src={`./src/assets/${iconPath}`}
@@ -46,14 +61,8 @@ function InputInfo({ about, iconPath, value }) {
   );
 }
 
-function SelectTip({ tipChosen }) {
+function SelectTip({ tipChosen, onTipChange }) {
   const tipPercents = ['5%', '10%', '15%', '25%', '50%'];
-
-  // let customTip = false;
-
-  // if (!tipChosen.endsWith('%')) {
-  //   customTip = true;
-  // }
 
   const tipElements = tipPercents.map((percent) => {
     let selected = false;
@@ -61,8 +70,10 @@ function SelectTip({ tipChosen }) {
 
     return (
       <Tip
+        key={percent}
         percent={percent}
         selected={selected}
+        onSelected={onTipChange}
       />
     );
   });
@@ -72,18 +83,27 @@ function SelectTip({ tipChosen }) {
       {tipElements}
       <input
         type='number'
-        placeholder='Custom'
+        placeholder='$Custom'
+        value={tipChosen}
+        onChange={(e) => onTipChange(e.target.value)}
       />
     </section>
   );
 }
 
-function Tip({ percent, selected }) {
+function Tip({ percent, selected, onSelected }) {
   // use the selected prop to give the selected btn a distinct look
-  return <button disabled={selected}>{percent}</button>;
+  return (
+    <button
+      disabled={selected}
+      onClick={(e) => onSelected(e.target.textContent)}
+    >
+      {percent}
+    </button>
+  );
 }
 
-function Result({ bill, totalPeople, tipInfo }) {
+function Result({ bill, totalPeople, tipInfo, reset }) {
   let totalTip = null;
   if (tipInfo.endsWith('%')) {
     totalTip = (tipInfo.slice(0, -1) / 100) * bill;
@@ -93,8 +113,14 @@ function Result({ bill, totalPeople, tipInfo }) {
 
   let totalBill = bill + Number(totalTip);
 
-  const tipPerPerson = Math.ceil((totalTip / totalPeople) * 100) / 100;
-  const totalPerPerson = Math.ceil((totalBill / totalPeople) * 100) / 100;
+  // if (bill || tipInfo) totalPeople = 1;
+  // to avoid getting NaN by dividing by 0
+
+  let tipPerPerson = Math.ceil((totalTip / totalPeople) * 100) / 100;
+  let totalPerPerson = Math.ceil((totalBill / totalPeople) * 100) / 100;
+
+  if (!tipPerPerson && tipPerPerson !== 0) tipPerPerson = '';
+  if (!totalPerPerson && totalPerPerson !== 0) totalPerPerson = '';
 
   return (
     <section>
@@ -103,7 +129,7 @@ function Result({ bill, totalPeople, tipInfo }) {
           <p>Tip Amount</p>
           <p>/ person</p>
         </div>
-        <p>${tipPerPerson}</p>
+        <p>${tipPerPerson === Infinity ? '0.00' : tipPerPerson}</p>
       </div>
 
       <div>
@@ -111,10 +137,10 @@ function Result({ bill, totalPeople, tipInfo }) {
           <p>Total</p>
           <p>/ person</p>
         </div>
-        <p>${totalPerPerson}</p>
+        <p>${totalPerPerson === Infinity ? '0.00' : totalPerPerson}</p>
       </div>
 
-      <button>RESET</button>
+      <button onClick={reset}>RESET</button>
     </section>
   );
 }

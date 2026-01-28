@@ -1,7 +1,9 @@
+import React from 'react';
+
 export function Calculator() {
-  const totalBill = 1000;
-  const totalPeople = 10;
-  const tipChosen = '55%';
+  const [totalBill, setTotalBill] = React.useState(100);
+  const [totalPeople, setTotalPeople] = React.useState(10);
+  const [tipChosen, setTipChosen] = React.useState('10%');
 
   return (
     <article>
@@ -47,6 +49,12 @@ function InputInfo({ about, iconPath, value }) {
 function SelectTip({ tipChosen }) {
   const tipPercents = ['5%', '10%', '15%', '25%', '50%'];
 
+  // let customTip = false;
+
+  // if (!tipChosen.endsWith('%')) {
+  //   customTip = true;
+  // }
+
   const tipElements = tipPercents.map((percent) => {
     let selected = false;
     if (percent === tipChosen) selected = true;
@@ -83,7 +91,7 @@ function Result({ bill, totalPeople, tipInfo }) {
     totalTip = tipInfo;
   }
 
-  let totalBill = bill + totalTip;
+  let totalBill = bill + Number(totalTip);
 
   const tipPerPerson = Math.ceil((totalTip / totalPeople) * 100) / 100;
   const totalPerPerson = Math.ceil((totalBill / totalPeople) * 100) / 100;

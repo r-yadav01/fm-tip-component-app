@@ -81,6 +81,7 @@ function SelectTip({ tipChosen, onTipChange }) {
   return (
     <section>
       {tipElements}
+
       <input
         type='number'
         placeholder='$Custom'

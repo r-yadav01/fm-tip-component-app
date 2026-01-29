@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calculator } from './Calculator';
+import GlobalStyles from './GlobalStyles.js';
 
 import './App.css';
 
@@ -15,6 +16,8 @@ function App() {
       </header>
 
       <Calculator />
+
+      <GlobalStyles />
     </>
   );
 }

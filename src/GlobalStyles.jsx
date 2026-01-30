@@ -88,6 +88,7 @@ html {
   font-family: 'Space Mono', monospace;
   font-weight: 400;
   font-style: normal;
+  font-size: 24px;
 }
 
 `;

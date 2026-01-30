@@ -1,4 +1,8 @@
 import React from 'react';
+import { InputInfo } from './InputInfo';
+import { SelectTip } from './SelectTip';
+import { Result } from './Result';
+import styled from 'styled-components';
 
 export function Calculator() {
   const [totalBill, setTotalBill] = React.useState('');
@@ -12,7 +16,7 @@ export function Calculator() {
   }
 
   return (
-    <article>
+    <Wrapper>
       <InputInfo
         about='Bill'
         iconPath='icon-dollar.svg'
@@ -36,112 +40,15 @@ export function Calculator() {
         setTotalPeople={setTotalPeople}
         reset={resetAllStates}
       />
-    </article>
+    </Wrapper>
   );
 }
 
-function InputInfo({ about, iconPath, value, onValueChange }) {
-  const inputId = about.replace(/\s+/g, '');
-
-  return (
-    <section>
-      <label htmlFor={inputId}>{about}</label>
-      <input
-        type='number'
-        id={inputId}
-        value={value === 0 ? '' : value}
-        placeholder='0'
-        onChange={(e) => onValueChange(Number(e.target.value))}
-      />
-      <img
-        src={`./src/assets/${iconPath}`}
-        alt={iconPath}
-      />
-    </section>
-  );
-}
-
-function SelectTip({ tipChosen, onTipChange }) {
-  const tipPercents = ['5%', '10%', '15%', '25%', '50%'];
-
-  const tipElements = tipPercents.map((percent) => {
-    let selected = false;
-    if (percent === tipChosen) selected = true;
-
-    return (
-      <Tip
-        key={percent}
-        percent={percent}
-        selected={selected}
-        onSelected={onTipChange}
-      />
-    );
-  });
-
-  return (
-    <section>
-      {tipElements}
-
-      <input
-        type='number'
-        placeholder='$Custom'
-        value={tipChosen}
-        onChange={(e) => onTipChange(e.target.value)}
-      />
-    </section>
-  );
-}
-
-function Tip({ percent, selected, onSelected }) {
-  // use the selected prop to give the selected btn a distinct look
-  return (
-    <button
-      disabled={selected}
-      onClick={(e) => onSelected(e.target.textContent)}
-    >
-      {percent}
-    </button>
-  );
-}
-
-function Result({ bill, totalPeople, tipInfo, reset }) {
-  let totalTip = null;
-  if (tipInfo.endsWith('%')) {
-    totalTip = (tipInfo.slice(0, -1) / 100) * bill;
-  } else {
-    totalTip = tipInfo;
-  }
-
-  let totalBill = bill + Number(totalTip);
-
-  // if (bill || tipInfo) totalPeople = 1;
-  // to avoid getting NaN by dividing by 0
-
-  let tipPerPerson = Math.ceil((totalTip / totalPeople) * 100) / 100;
-  let totalPerPerson = Math.ceil((totalBill / totalPeople) * 100) / 100;
-
-  if (!tipPerPerson && tipPerPerson !== 0) tipPerPerson = '';
-  if (!totalPerPerson && totalPerPerson !== 0) totalPerPerson = '';
-
-  return (
-    <section>
-      <div>
-        <div>
-          <p>Tip Amount</p>
-          <p>/ person</p>
-        </div>
-        <p>${tipPerPerson === Infinity ? '0.00' : tipPerPerson}</p>
-      </div>
-
-      <div>
-        <div>
-          <p>Total</p>
-          <p>/ person</p>
-        </div>
-        <p>${totalPerPerson === Infinity ? '0.00' : totalPerPerson}</p>
-      </div>
-
-      <button onClick={reset}>RESET</button>
-    </section>
-  );
-}
+const Wrapper = styled.article`
+  border-radius: 5% 5% 0% 0%;
+  outline: 1px solid red;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;

@@ -38,7 +38,12 @@ export function Result({ bill, totalPeople, tipInfo, reset }) {
         </SlotDisplay>
       </CalculatedSlot>
 
-      <Reset onClick={reset}>RESET</Reset>
+      <Reset
+        onClick={reset}
+        disabled={!(bill || tipInfo || totalPeople)}
+      >
+        RESET
+      </Reset>
     </Wrapper>
   );
 }
@@ -74,6 +79,11 @@ const Reset = styled.button`
 
   &:active {
     background-color: hsl(185, 41%, 84%);
+  }
+
+  &:disabled {
+    background-color: hsl(184, 14%, 56%);
+    /* color: hsl(0, 100%, 100%); */
   }
 `;
 

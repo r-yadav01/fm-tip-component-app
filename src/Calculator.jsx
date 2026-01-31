@@ -22,6 +22,7 @@ export function Calculator() {
         iconPath='icon-dollar.svg'
         value={totalBill}
         onValueChange={setTotalBill}
+        errorMsg={false}
       />
       <SelectTip
         tipChosen={tipChosen}
@@ -32,6 +33,7 @@ export function Calculator() {
         iconPath='icon-person.svg'
         value={totalPeople}
         onValueChange={setTotalPeople}
+        errorMsg='someone has to pay the bill'
       />
       <Result
         bill={totalBill}
@@ -45,10 +47,10 @@ export function Calculator() {
 }
 
 const Wrapper = styled.article`
-  border-radius: 5% 5% 0% 0%;
-  outline: 1px solid red;
-  padding: 1rem;
-  display: flex;
+  border-radius: 1rem 1rem 0rem 0rem;
   flex-direction: column;
-  gap: 1rem;
+  background-color: white;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1.5rem;
 `;

@@ -51,14 +51,16 @@ const CalculatedSlot = styled.div`
 const SlotDisplay = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
+  color: hsl(172, 67%, 45%);
 `;
 
 const Wrapper = styled.section`
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 1.25rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background-color: hsl(183, 100%, 15%);
 `;
 
 const Reset = styled.button`
@@ -67,13 +69,21 @@ const Reset = styled.button`
   border-radius: 0.25rem;
   border: none;
   font-weight: 600;
+  background-color: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+
+  &:active {
+    background-color: hsl(185, 41%, 84%);
+  }
 `;
 
 const SlotTag = styled.p`
   font-weight: 600;
   font-size: 0.75rem;
+  color: white;
 `;
 
 const PerPerson = styled.p`
   font-size: 0.75rem;
+  color: hsl(185, 41%, 84%);
 `;

@@ -35,9 +35,20 @@ export function SelectTip({ tipChosen, onTipChange }) {
 }
 
 function Tip({ percent, selected, onSelected }) {
+  let dynamicCSS = {
+    '--btn-bg': 'hsl(183, 100%, 15%)',
+    '--font-color': 'white',
+  };
+
+  if (selected) {
+    dynamicCSS['--btn-bg'] = 'hsl(172, 67%, 45%)';
+    dynamicCSS['--font-color'] = 'hsl(183, 100%, 15%)';
+  }
+
   return (
     <TipBtn
       disabled={selected}
+      style={dynamicCSS}
       onClick={(e) => onSelected(e.target.textContent)}
     >
       {percent}
@@ -52,20 +63,30 @@ const TipOptions = styled.div`
 `;
 
 const Custom = styled.input`
-  max-width: 45vw;
+  max-width: 8rem;
+  width: 100%;
   height: 2rem;
   padding: 0rem 0.5rem;
   text-align: center;
+  background-color: hsl(189, 47%, 97%);
+  border-radius: 0.25rem;
+  font-weight: 600;
+  border: 1px solid hsl(189, 40%, 90%);
 `;
 
 const Label = styled.label`
   font-size: 0.75rem;
   font-weight: 600;
+  color: hsl(186, 14%, 43%);
 `;
 
 const TipBtn = styled.button`
   height: 2rem;
   font-weight: 600;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: var(--btn-bg);
+  color: var(--font-color);
 `;
 
 const Wrapper = styled.section`

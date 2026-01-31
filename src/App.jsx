@@ -15,7 +15,6 @@ function App() {
       </Header>
 
       <Calculator />
-
       <GlobalStyles />
     </Wrapper>
   );
@@ -25,16 +24,22 @@ const Wrapper = styled.div`
   max-width: 450px;
   outline: 2px dashed red;
   margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: hsl(185, 41%, 84%);
 `;
 
 const Header = styled.header`
   text-align: center;
-  padding-block: 1.5rem;
+  padding-block: 1rem;
 `;
 
 const Name = styled.p`
   letter-spacing: 0.25rem;
   font-weight: 700;
+  color: hsl(183, 100%, 15%);
+  font-size: 1.25rem;
 `;
 
 export default App;

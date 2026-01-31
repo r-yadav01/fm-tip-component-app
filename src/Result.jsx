@@ -82,8 +82,7 @@ const Reset = styled.button`
   }
 
   &:disabled {
-    background-color: hsl(184, 14%, 56%);
-    /* color: hsl(0, 100%, 100%); */
+    background-color: hsl(184, 20%, 50%);
   }
 `;
 

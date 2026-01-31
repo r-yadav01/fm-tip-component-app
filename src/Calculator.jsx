@@ -22,7 +22,6 @@ export function Calculator() {
         iconPath='icon-dollar.svg'
         value={totalBill}
         onValueChange={setTotalBill}
-        errorMsg={false}
       />
       <SelectTip
         tipChosen={tipChosen}

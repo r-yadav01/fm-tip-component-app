@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export function InputInfo({ about, iconPath, value, onValueChange, errorMsg }) {
+export function InputInfo({
+  about,
+  iconPath,
+  value,
+  onValueChange,
+  errorMsg = false,
+}) {
   const inputId = about.replace(/\s+/g, '');
 
   return (
@@ -9,12 +15,14 @@ export function InputInfo({ about, iconPath, value, onValueChange, errorMsg }) {
       <TextInput
         type='number'
         id={inputId}
-        value={value === 0 ? '' : value}
+        value={value}
         placeholder='0'
         onChange={(e) => onValueChange(Number(e.target.value))}
       />
 
-      {/* {value !== '' && !value && <Error error={value}>{errorMsg}</Error>} */}
+      {!value && errorMsg ?
+        <Error value={value}>{errorMsg}</Error>
+      : null}
 
       <ImageWrapper>
         <img
@@ -26,12 +34,11 @@ export function InputInfo({ about, iconPath, value, onValueChange, errorMsg }) {
   );
 }
 
-// const Error = styled.p`
-//   /* display: none; */
-//   font-size: 0.75rem;
-//   color: red;
-//   display: ${(p) => (p.error ? 'none' : 'block')};
-// `;
+const Error = styled.p`
+  font-size: 0.75rem;
+  color: red;
+  display: ${(p) => (p.value !== 0 && !p.value ? 'none' : 'block')};
+`;
 
 const FormField = styled.section`
   display: flex;

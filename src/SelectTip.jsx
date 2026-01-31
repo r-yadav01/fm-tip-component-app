@@ -22,7 +22,7 @@ export function SelectTip({ tipChosen, onTipChange }) {
       <TipOptions>
         {tipElements}
 
-        <Custom
+        <CustomTip
           type='number'
           id='tip'
           placeholder='$Custom'
@@ -62,13 +62,14 @@ const TipOptions = styled.div`
   gap: 0.5rem;
 `;
 
-const Custom = styled.input`
+const CustomTip = styled.input`
   max-width: 8rem;
   width: 100%;
   height: 2rem;
   padding: 0rem 0.5rem;
   text-align: center;
   background-color: hsl(189, 47%, 97%);
+  color: hsl(183, 100%, 15%);
   border-radius: 0.25rem;
   font-weight: 600;
   border: 1px solid hsl(189, 40%, 90%);

@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 design 
-README*
 tip-calculator-app-main
 
 # Editor directories and files

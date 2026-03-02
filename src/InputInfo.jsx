@@ -20,7 +20,7 @@ export function InputInfo({ about, iconPath, value, onValueChange, errorMsg = fa
 
             <ImageWrapper>
                 <img
-                    src={`./src/assets/${iconPath}`}
+                    src={`./${iconPath}`}
                     alt={iconPath}
                 />
             </ImageWrapper>

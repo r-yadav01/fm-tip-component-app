@@ -31,7 +31,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [on github](https://github.com/r-yadav01/fm-tip-component-app)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [deployed using vercel](https://fm-tip-component-app.vercel.app/)
 
 ## My process
 
